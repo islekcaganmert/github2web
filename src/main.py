@@ -41,12 +41,27 @@ def index(path) -> str:
         title = body.split('class="heading-element"')[1].split('>')[1].split('<')[0]
     except IndexError:
         title = path.split('/')[-1]
+    description = head_wo_title.split('<meta property="og:description" content="')[1].split('">')[0]
+    description = description.removesuffix(description.split(' - ')[-1])
+    for i in [
+        '<meta name="description" content="',
+        '<meta property="og',
+        '<meta name="twitter',
+        '<meta name="fb',
+    ]:
+        while len(head_wo_title.split(i)) > 1:
+            to_clean = head_wo_title.split(i)[1].split('>')[0]
+            head_wo_title = head_wo_title.replace(f"{i}{to_clean}>", '')
     return f"""
 <!DOCTYPE html>
 <html {html_args}>
     <head>
         {head_wo_title}
         <title>{title}</title>
+        <meta name="description" content="{description}">
+        <meta property="og:title" content="{title}">
+        <meta property="og:description" content="{description}">
+        <meta property="og:site_name" content="{title}">
     </head>
     <body {body_args}>
         {body}
