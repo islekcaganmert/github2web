@@ -8,6 +8,8 @@ Turn docs hosted on a GitHub repo into a website.
 python3 -m venv .venv
 . ./.venv/bin/activate
 pymake restore
+export REPO='username/repo'
+export ICON='https://example.com/favicon.png'
 ```
 
 ### How to Run?
