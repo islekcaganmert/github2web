@@ -5,3 +5,4 @@ __pycache__/
 tests/
 .DS_Store
 requirements.old
+.vercel
